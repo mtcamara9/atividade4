@@ -1,0 +1,16 @@
+- name: Configurar servidor Windows com IIS
+  hosts: windows_servers
+  gather_facts: false
+  tasks:
+  - name: Instalar o recurso IIS
+    win_feature:
+      name: Web-Server
+      state: present
+      include_sub_features: true
+      include_management_tools: true
+
+  - name: Iniciar e habilitar o serviço do IIS
+    win_service:
+      name: W3SVC
+      start_mode: auto
+      state: started
